@@ -1,6 +1,6 @@
 #!/bin/bash
 master=192.168.252.11
-kubeadm config print init-defaults > /root/new.yaml
+kubeadm config print init-defaults
 sed "s/  advertiseAddress: 1.2.3.4/  advertiseAddress: $master/" new.yaml
 sed -i "/  timeoutForControlPlane: 4m0s/i \ \ - $master" new.yaml
 sed -i "/  - $master/i \ \ certSANs:" new.yaml
