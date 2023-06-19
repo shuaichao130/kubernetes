@@ -1,7 +1,7 @@
 #!/bin/bash
 master=192.168.252.11
 kubeadm config print init-defaults > new.yaml
-sed "s/  advertiseAddress: 1.2.3.4/  advertiseAddress: $master/" new.yaml
+sed -i "s/  advertiseAddress: 1.2.3.4/  advertiseAddress: $master/" new.yaml
 sed -i "/  timeoutForControlPlane: 4m0s/i \ \ - $master" new.yaml
 sed -i "/  - $master/i \ \ certSANs:" new.yaml
 sed -i "s|  serviceSubnet: 10.96.0.0/12|  serviceSubnet: 172.16.0.0/16|" new.yaml
