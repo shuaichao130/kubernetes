@@ -165,5 +165,9 @@ net.ipv4.tcp_timestamps = 0
 net.core.somaxconn = 16384
 EOF
 sysctl --system 
-
-
+mkdir -p /etc/docker
+cat << EOF > /etc/docker/daemon.json 
+{"registry-mirrors": ["https://s7kqknxt.mirror.aliyuncs.com"]
+}
+EOF
+systemctl daemon-reload
