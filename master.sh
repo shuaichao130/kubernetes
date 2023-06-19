@@ -7,7 +7,7 @@ sed -i "/  - $master/i \ \ certSANs:" new.yaml
 sed -i "s|  serviceSubnet: 10.96.0.0/12|  serviceSubnet: 172.16.0.0/16|" new.yaml
 sed -i "/  serviceSubnet: 172.16.0.0\/16/i \ \ podSubnet: 192.168.0.0\/16" new.yaml
 kubeadm config images pull --config /root/new.yaml
-kubeadm init --config /root/new.yaml --upload-certs > k8s.txt
+kubeadm init --config /root/new.yaml --upload-certs
 sed -i '$a export KUBECONFIG=/etc/kubernetes/admin.conf' /etc/profile
 source /etc/profile
 wget https://raw.githubusercontent.com/shuaichao130/kubernetes/main/calico-etcd.yaml
