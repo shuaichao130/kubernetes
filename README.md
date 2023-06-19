@@ -1,0 +1,5 @@
+# kubernetes
+ansible自动化部署kubernetes1.20.7
+安装kubernetes需要all.sh脚本中的一些配置
+使用ansible-playbook将脚本拷贝到各个机器，并执行脚本
+使用ansbile-playbook批量安装docker、kubeadm、kubectl、kubelet并启动kubelet
