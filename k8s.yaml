@@ -1,0 +1,7 @@
+- hosts: all
+  user: root
+  tasks:
+    - name: cp /root/all.sh
+      copy: src=/root/all.sh dest=/root/ owner=root group=root mode=0777
+    - name: all.sh
+      script: ./all.sh
