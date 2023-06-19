@@ -170,4 +170,3 @@ cat << EOF > /etc/docker/daemon.json
 {"registry-mirrors": ["https://s7kqknxt.mirror.aliyuncs.com"]
 }
 EOF
-systemctl daemon-reload
