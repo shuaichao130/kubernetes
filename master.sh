@@ -11,7 +11,7 @@ sed -i 's/imageRepository: k8s.gcr.io/imageRepository: registry.cn-hangzhou.aliy
 kubeadm config images pull --config /root/new.yaml
 sleep 10
 kubeadm init --config /root/new.yaml --upload-certs
-sleep 300
+sleep 600
 sed -i '$a export KUBECONFIG=/etc/kubernetes/admin.conf' /etc/profile
 source /etc/profile
 wget https://raw.githubusercontent.com/shuaichao130/kubernetes/main/calico-etcd.yaml
