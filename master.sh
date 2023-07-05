@@ -15,7 +15,7 @@ sleep 600
 sed -i '$a export KUBECONFIG=/etc/kubernetes/admin.conf' /etc/profile
 source /etc/profile
 wget https://raw.githubusercontent.com/shuaichao130/kubernetes/main/calico-etcd.yaml
-sed -i "s#etcd_endpoints: "http://<ETCD_IP>:<ETCD_PORT>"#etcd_endpoints: "https://$master:2379"#g" calico-etcd.yaml 
+sed -i "s#etcd_endpoints: \"http://<ETCD_IP>:<ETCD_PORT>\"#etcd_endpoints: \"https://$master:2379\"#" calico-etcd.yaml
 ETCD_CA=`cat /etc/kubernetes/pki/etcd/ca.crt | base64 | tr -d '\n'`
 ETCD_CERT=`cat /etc/kubernetes/pki/etcd/server.crt | base64 | tr -d '\n'`
 ETCD_KEY=`cat /etc/kubernetes/pki/etcd/server.key | base64 | tr -d '\n'`
