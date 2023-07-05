@@ -5,7 +5,7 @@ sed -i "s/  advertiseAddress: 1.2.3.4/  advertiseAddress: $master/" new.yaml
 sed -i "/  timeoutForControlPlane: 4m0s/i \ \ - $master" new.yaml
 sed -i "/  - $master/i \ \ certSANs:" new.yaml
 sed -i "s|  serviceSubnet: 10.96.0.0/12|  serviceSubnet: 172.16.0.0/16|" new.yaml
-sed -i "/  serviceSubnet: 172.16.0.0\/16/i \ \ podSubnet: 192.168.0.0\/16" new.yaml
+sed -i "/  serviceSubnet: 172.16.0.0\/16/i \ \ podSubnet: 10.96.0.0\/16" new.yaml
 sed -i 's/kubernetesVersion: v1.20.0/kubernetesVersion: v1.20.7/' new.yaml
 sed -i 's/imageRepository: k8s.gcr.io/imageRepository: registry.cn-hangzhou.aliyuncs.com\/google_containers/' new.yaml
 kubeadm config images pull --config /root/new.yaml
