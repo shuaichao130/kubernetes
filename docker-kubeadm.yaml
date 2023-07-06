@@ -1,22 +1,39 @@
 - hosts: all
   user: root
+  gather_facts: false
   tasks:
     - name: yum docker
       yum: name=docker-ce-19.03* state=present
     - name: start docker
-      service: name=docker state=started enabled=yes
-    - name: yum kubeadm
-      yum: name=kubeadm-1.20.7 state=present
-    - name: yum kubelet
-      yum: name=kubelet-1.20.7 state=present
-    - name: yum kubectl
-      yum: name=kubectl-1.20.7 state=present
+      service: 
+        name: docker
+        state: started 
+        enabled: yes
+    - name: systemctl daemon-reload
+      shell: systemctl daemon-reload
+    - name: wget kubeadm kubelet kubectl
+      shell: wget https://raw.githubusercontent.com/shuaichao130/kubernetes/main/kubectl.sh
+    - name: chmod kubectl.sh
+      file: path=/root/kubectl.sh mode=0777
+    - name: bash kubectl.sh
+      shell: ./kubectl.sh
     - name: xg config
-      shell: sed -i 's/KUBELET_EXTRA_ARGS=/KUBELET_EXTRA_ARGS="--pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:3.2"/'
----
+      shell: sed -i 's/^KUBELET_EXTRA_ARGS=.*/KUBELET_EXTRA_ARGS="--pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com\/google_containers\/pause-amd64:3.2"/' /etc/sysconfig/kubelet
+    - name: systemctl start kubelet
+      service: 
+        name: kubelet
+        state: started
+        enabled: yes
 - hosts: master
   user: root
+  gather_facts: false
   tasks:
-    - name: Init initalize file
-      shell: kubeadm config print init-defaults > new.yaml
+    - name: wget calico
+      shell: wget --no-check-certificate http://raw.githubusercontent.com/shuaichao130/kubernetes/main/calico-etcd.yaml
+    - name: wget master.sh
+      shell: wget http://raw.githubusercontent.com/shuaichao130/kubernetes/main/master.sh
+    - name: chmod master.sh
+      file: path=/root/master.sh mode=0777
+    - name: bash master.sh
+      script: ./master.sh
     
