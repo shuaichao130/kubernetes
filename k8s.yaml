@@ -1,7 +1,10 @@
 - hosts: all
   user: root
+  gather_facts: false
   tasks:
-    - name: cp /root/all.sh
-      copy: src=/root/all.sh dest=/root/ owner=root group=root mode=0777
-    - name: all.sh
+    - name: wget all.sh
+      shell: wget --no-check-certificate http://raw.githubusercontent.com/shuaichao130/kubernetes/main/all.sh
+    - name: chmod all.sh
+      file: path=/root/all.sh mode=0777
+    - name: bash all.sh
       script: ./all.sh
